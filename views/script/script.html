@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-md-8">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalScript"><span class="glyphicon glyphicon-plus"></span> Novo Script</button>
+    </div>
+    <div class="col-md-4">
+        <input class="form-control" placeholder="Pesquisar" ng-model="pesquisar">
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped" ng-init="listaScript()">
+            <thead>
+                <th>#</th>
+                <th>Descrição</th>
+            </thead>
+            <tbody>
+                <!-- Listagem -->
+                <tr dir-paginate="script in scripts|filter:pesquisar|itemsPerPage:8">
+                    <td>
+                        <button class="btn btn-info btn-xs" ng-click="editar(script)"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button class="btn btn-danger btn-xs" ng-click="excluir(script)"><span class="glyphicon glyphicon-trash"></span></button>                        {{script.idScript}}
+                    </td>
+                    <td> {{script.dsDescricao}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <dir-pagination-controls>
+        </dir-pagination-controls>
+    </div>
+</div>
+<!-- Modal Cadastro e Edição -->
+<div class="modal fade" id="modalScript" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Script</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div>
+                        <label>Descrição</label>
+                        <input class="form-control" type="text" ng-model="script.dsDescricao" placeholder="Digite o titulo">
+                    </div>
+                    <div>
+                        <label>Script</label>
+                        <textarea class="form-control" type="text" ng-model="script.dsQuery" placeholder="Digite o script"> </textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="script = {}" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" ng-click="salvar()">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
