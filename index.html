@@ -8,7 +8,9 @@
 		window.$ = window.jQuery = require('jquery');
 	</script>
 	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="main.css">
 	<script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
 
 	<!-- Angular -->
 	<script src="node_modules/angular/angular.js"></script>
@@ -16,6 +18,11 @@
 	<script src="node_modules/angular-utils-pagination/dirPagination.js"></script>
 	<!-- App -->
 	<script src="app.js"></script>
+
+	<!-- Menu de contexto -->
+	<script src="lib/ngContextMenu.js"></script>
+	<link rel="stylesheet" href="lib/ngContextMenu.css"></link>
+
 
 	<!-- Controllers -->
 	<script src="controllers/scriptController.js"></script>
@@ -32,7 +39,12 @@
 	</nav>
 
 	<!-- Onde será carregada a view -->
-	<div ng-view="" class="container"></div>
+	<div ng-view="" class="container-fluid"></div>
 </body>
+<!--<script>
+	// You can also require other files to run in this process 
+	require('./renderer.js')
+</script>
+-->
 
 </html>

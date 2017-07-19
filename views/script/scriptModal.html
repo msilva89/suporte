@@ -1,0 +1,38 @@
+<!-- Modal Cadastro e Edição -->
+<div class="modal fade" id="modalScript">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Script</h4>
+            </div>
+            <form name="userForm" ng-submit="salvar()" novalidate>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!-- Descricao -->
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.dsDescricao.$error.required }">
+                                <label>Descrição</label>
+                                <input class="form-control" type="text" name="dsDescricao" ng-model="script.dsDescricao" placeholder="Digite a descrição"
+                                    required/>
+                                <p ng-show="userForm.dsDescricao.$error.required" class="help-block">Descrição é obrigatória</p>
+                            </div>
+                            <!-- Query -->
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.dsQuery.$error.required }">
+                                <label>Script</label>
+                                <textarea class="form-control" name="dsQuery" type="text" ng-model="script.dsQuery" rows="15" placeholder="Digite o script"
+                                    required> </textarea>
+                                <p ng-show="userForm.dsQuery.$error.required" class="help-block">Script é obrigatório</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" ng-click="novo()" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Salvar</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

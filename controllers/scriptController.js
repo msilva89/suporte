@@ -1,21 +1,46 @@
 app.controller("scriptController", function ($scope, $location, $http, urlBase) {
+
+    $scope.script = script = {};
+
+    $scope.menus = [{
+        name: 'Editar',
+        event: 'editar'
+    }, {
+        name: 'Excluir',
+        event: 'excluir'
+    }]
+
+
+    $scope.clickMenu = function (script, item) {
+        $scope.script = angular.copy(script);
+        if (item.event == 'editar')
+            $scope.editar($scope.script);
+        else if (item.event == 'excluir')
+            $scope.excluir($scope.script);
+    };
+
+    $scope.getQuery = (script) => {
+        $scope.dsQuery = script.dsQuery;
+    }
+
     //Listando
-    $scope.listaScript = function () {
+    $scope.listaScript = () => {
         $http({
             method: 'GET',
             url: urlBase + 'script/'
         }).then((response) => {
             $scope.scripts = response.data;
         }, (error) => {
-            //self.ocorreuErro();
-            console.log(error);
+            console.log(error.data);
         });
+    }
 
+    $scope.novo = () => {
+        $scope.script = script = {};
     }
 
     //Salvando
-    $scope.salvar = function () {
-
+    $scope.salvar = () => {
         var metodo = 'POST';
         if ($scope.script.idScript) {
             metodo = 'PUT';
@@ -36,17 +61,25 @@ app.controller("scriptController", function ($scope, $location, $http, urlBase) 
     }
 
     //Abrindo para editar
-    $scope.editar = function (script) {
-        $scope.script = script;
+    $scope.editar = (script) => {
+        $scope.script = angular.copy(script);
+        $scope.dsQuery = undefined;
         $('#modalScript').modal('show');
     }
 
     //Excluindo
-    $scope.excluir = function (script) {
+    $scope.excluir = (script) => {
         if (confirm("Deseja realmente apagar o script de " + script.dsDescricao + "?")) {
-            //dbService.update('pessoas', { ativo: 0 }, { id: dados.id });
-            console.log("deletando o script: " + script.idScript);
-            $scope.listaScript();
+            $http({
+                method: 'DELETE',
+                url: urlBase + 'script/' + script.idScript
+            }).then((response) => {
+                $scope.dsQuery = undefined;
+                $scope.novo();
+                $scope.listaScript();
+            }, (error) => {
+                console.log(error);
+            });
         }
     }
 });
